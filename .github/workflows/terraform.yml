@@ -19,9 +19,11 @@ jobs:
     strategy:
       matrix:
         environment: [dev, prod]
-        exclude:
-          - environment: prod
+        include:
+          - environment: dev
             branch: develop
+          - environment: prod
+            branch: main
     
     steps:
     - name: Checkout code
