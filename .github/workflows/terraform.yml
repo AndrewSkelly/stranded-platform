@@ -18,7 +18,6 @@ jobs:
     
     strategy:
       matrix:
-        environment: [dev, prod]
         include:
           - environment: dev
             branch: develop
