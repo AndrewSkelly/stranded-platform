@@ -26,7 +26,7 @@ variable "ec2_security_group_ids" {
 variable "postgres_version" {
   description = "PostgreSQL engine version"
   type        = string
-  default     = "15.4"
+  default     = "15.15"
 }
 
 variable "db_instance_class" {
@@ -68,7 +68,7 @@ variable "db_password" {
 variable "backup_retention_period" {
   description = "Backup retention period in days"
   type        = number
-  default     = 7
+  default     = 1
 }
 
 variable "backup_window" {

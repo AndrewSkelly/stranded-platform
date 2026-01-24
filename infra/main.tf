@@ -1,10 +1,8 @@
 terraform {
   required_version = ">= 1.0"
   
-  backend "s3" {
-    bucket = "stranded-platform-terraform-state"
-    key    = "terraform.tfstate"
-    region = "eu-west-1"
+  backend "local" {
+    path = "./terraform.tfstate"
   }
 }
 
