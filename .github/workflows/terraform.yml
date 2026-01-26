@@ -1,28 +1,15 @@
-name: Terraform CI/CD
+name: Terraform Deploy
 
 on:
-  push:
-    branches: [ main, develop ]
-    paths: [ 'infra/**' ]
-  pull_request:
-    branches: [ main ]
-    paths: [ 'infra/**' ]
+  workflow_dispatch:
 
 env:
   AWS_REGION: eu-west-1
 
 jobs:
   terraform:
-    name: Terraform
+    name: Deploy Production
     runs-on: ubuntu-latest
-    
-    strategy:
-      matrix:
-        include:
-          - environment: dev
-            branch: develop
-          - environment: prod
-            branch: main
     
     steps:
     - name: Checkout code
@@ -53,20 +40,9 @@ jobs:
       working-directory: infra
 
     - name: Terraform Plan
-      run: terraform plan -var-file="envs/${{ matrix.environment }}.tfvars" -out=tfplan
+      run: terraform plan -var-file="envs/prod.tfvars" -out=tfplan
       working-directory: infra
 
-    - name: Terraform Apply (Dev Only)
-      if: github.ref == 'refs/heads/develop' && matrix.environment == 'dev'
+    - name: Terraform Apply
       run: terraform apply -auto-approve tfplan
-      working-directory: infra
-
-    - name: Terraform Apply (Prod Only)
-      if: github.ref == 'refs/heads/main' && matrix.environment == 'prod'
-      run: terraform apply -auto-approve tfplan
-      working-directory: infra
-
-    - name: Terraform Destroy (Dev on PR close)
-      if: github.event_name == 'pull_request' && github.event.action == 'closed' && matrix.environment == 'dev'
-      run: terraform destroy -var-file="envs/${{ matrix.environment }}.tfvars" -auto-approve
       working-directory: infra

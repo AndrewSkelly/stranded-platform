@@ -5,7 +5,7 @@ terraform {
     path = "./terraform.tfstate"
   }
 }
-# test
+
 provider "aws" {
   region = var.aws_region
   
