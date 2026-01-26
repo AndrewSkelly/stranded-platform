@@ -49,6 +49,4 @@ resource "aws_instance" "main" {
   tags = {
     Name = "${var.project_name}-${var.environment}-${count.index + 1}"
   }
-
-  user_data = var.user_data
 }
