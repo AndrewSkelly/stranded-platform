@@ -46,12 +46,6 @@ variable "instance_count" {
   default     = 1
 }
 
-variable "user_data" {
-  description = "User data script for instance initialization"
-  type        = string
-  default     = ""
-}
-
 # Outputs
 output "instance_ids" {
   description = "IDs of the EC2 instances"
