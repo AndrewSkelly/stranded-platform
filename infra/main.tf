@@ -2,11 +2,11 @@ terraform {
   required_version = ">= 1.0"
 
   backend "s3" {
-    bucket         = "stranded-platform-terraform-state"
-    key            = "prod/terraform.tfstate"
-    region         = "eu-west-1"
-    encrypt        = true
-    use_lockfile   = true
+    bucket       = "stranded-platform-terraform-state"
+    key          = "prod/terraform.tfstate"
+    region       = "eu-west-1"
+    encrypt      = true
+    use_lockfile = true
   }
 }
 
