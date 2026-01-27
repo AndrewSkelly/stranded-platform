@@ -2,6 +2,15 @@ name: Terraform Deploy
 
 on:
   workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        default: 'apply'
+        type: choice
+        options:
+        - apply
+        - destroy
 
 env:
   AWS_REGION: eu-west-1
@@ -44,5 +53,11 @@ jobs:
       working-directory: infra
 
     - name: Terraform Apply
+      if: github.event.inputs.action == 'apply'
       run: terraform apply -auto-approve tfplan
+      working-directory: infra
+
+    - name: Terraform Destroy
+      if: github.event.inputs.action == 'destroy'
+      run: terraform destroy -var-file="envs/prod.tfvars" -auto-approve
       working-directory: infra
