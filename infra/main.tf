@@ -33,6 +33,13 @@ module "vpc" {
   availability_zones   = var.availability_zones
 }
 
+module "ecr" {
+  source = "./modules/ecr"
+
+  project_name = var.project_name
+  environment  = var.environment
+}
+
 module "ecs" {
   source = "./modules/ecs"
 
@@ -49,6 +56,7 @@ module "ecs" {
   db_host            = module.rds.db_instance_endpoint
   db_port            = module.rds.db_instance_port
   db_password        = var.db_password
+  ecr_image_url      = module.ecr.repository_url
 }
 
 module "rds" {

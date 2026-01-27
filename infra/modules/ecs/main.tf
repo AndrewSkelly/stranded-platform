@@ -25,7 +25,7 @@ resource "aws_ecs_task_definition" "main" {
   container_definitions = jsonencode([
     {
       name  = "stranded-api"
-      image = "nginx:latest" # Replace with your API image
+      image = var.ecr_image_url # Will be set from main.tf
       
       portMappings = [
         {

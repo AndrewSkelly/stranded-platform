@@ -68,6 +68,11 @@ variable "db_password" {
   sensitive   = true
 }
 
+variable "ecr_image_url" {
+  description = "ECR image URL for the API"
+  type        = string
+}
+
 # Outputs
 output "cluster_name" {
   description = "Name of the ECS cluster"
