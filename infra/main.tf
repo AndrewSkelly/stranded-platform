@@ -33,17 +33,22 @@ module "vpc" {
   availability_zones   = var.availability_zones
 }
 
-module "compute" {
-  source = "./modules/compute"
+module "ecs" {
+  source = "./modules/ecs"
 
-  environment        = var.environment
   project_name       = var.project_name
-  instance_type      = var.instance_type
-  ami_id             = var.ami_id
-  key_name           = var.key_name
-  subnet_id          = module.vpc.public_subnet_ids[0]
+  environment        = var.environment
+  aws_region         = var.aws_region
   vpc_id             = module.vpc.vpc_id
-  security_group_ids = []
+  public_subnet_ids  = module.vpc.public_subnet_ids
+  private_subnet_ids = module.vpc.private_subnet_ids
+  subnet_ids         = module.vpc.private_subnet_ids
+  ami_id             = var.ami_id
+  instance_type      = var.instance_type
+  key_name           = var.key_name
+  db_host            = module.rds.db_instance_endpoint
+  db_port            = module.rds.db_instance_port
+  db_password        = var.db_password
 }
 
 module "rds" {
@@ -53,6 +58,6 @@ module "rds" {
   environment            = var.environment
   vpc_id                 = module.vpc.vpc_id
   private_subnet_ids     = module.vpc.private_subnet_ids
-  ec2_security_group_ids = [module.compute.security_group_id]
+  ec2_security_group_ids = [module.ecs.ecs_security_group_id]
   db_password            = var.db_password
 }

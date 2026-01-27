@@ -1,21 +1,36 @@
-output "instance_ids" {
-  description = "IDs of the EC2 instances"
-  value       = module.compute.instance_ids
+output "cluster_name" {
+  description = "Name of the ECS cluster"
+  value       = module.ecs.cluster_name
 }
 
-output "instance_public_ips" {
-  description = "Public IP addresses of the EC2 instances"
-  value       = module.compute.instance_public_ips
+output "service_name" {
+  description = "Name of the ECS service"
+  value       = module.ecs.service_name
 }
 
-output "instance_private_ips" {
-  description = "Private IP addresses of the EC2 instances"
-  value       = module.compute.instance_private_ips
+output "alb_dns_name" {
+  description = "DNS name of the Application Load Balancer"
+  value       = module.ecs.alb_dns_name
 }
 
-output "security_group_id" {
-  description = "ID of the EC2 security group"
-  value       = module.compute.security_group_id
+output "alb_url" {
+  description = "URL of the Application Load Balancer"
+  value       = module.ecs.alb_url
+}
+
+output "ecs_task_definition_arn" {
+  description = "ARN of the ECS task definition"
+  value       = module.ecs.ecs_task_definition_arn
+}
+
+output "ecs_security_group_id" {
+  description = "Security group ID for ECS tasks"
+  value       = module.ecs.ecs_security_group_id
+}
+
+output "alb_security_group_id" {
+  description = "Security group ID for ALB"
+  value       = module.ecs.alb_security_group_id
 }
 
 output "vpc_id" {

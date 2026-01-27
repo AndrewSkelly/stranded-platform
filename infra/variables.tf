@@ -23,13 +23,13 @@ variable "availability_zones" {
 }
 
 variable "db_password" {
-  description = "Database password"
+  description = "Password for RDS database"
   type        = string
   sensitive   = true
 }
 
 variable "aws_region" {
-  description = "AWS region for resources"
+  description = "AWS region"
   type        = string
   default     = "eu-west-1"
 }
@@ -42,13 +42,11 @@ variable "environment" {
 variable "project_name" {
   description = "Name of the project"
   type        = string
-  default     = "stranded-platform"
 }
 
 variable "instance_type" {
   description = "EC2 instance type"
   type        = string
-  default     = "t3.micro"
 }
 
 variable "ami_id" {
@@ -61,4 +59,3 @@ variable "key_name" {
   type        = string
   default     = ""
 }
-
