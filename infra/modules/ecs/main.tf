@@ -139,6 +139,10 @@ resource "aws_lb_target_group" "main" {
     unhealthy_threshold = 2
   }
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
   tags = {
     Name = "${var.project_name}-${var.environment}-tg"
   }
@@ -274,8 +278,8 @@ resource "aws_iam_role" "ecs_task_role" {
 resource "aws_autoscaling_group" "ecs" {
   name                = "${var.project_name}-${var.environment}-ecs-asg"
   vpc_zone_identifier = var.private_subnet_ids
-  desired_capacity    = 2
-  max_size           = 4
+  desired_capacity    = 1
+  max_size           = 2
   min_size           = 1
 
   launch_template {
